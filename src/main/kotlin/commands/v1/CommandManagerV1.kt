@@ -27,10 +27,6 @@ class CommandManagerV1 {
         commandsMap.register("kuracore", kuraCmd)
     }
 
-    object KuraApi {
-        object commands {
-            val v1 = CommandManagerV1()
-        }
-    }
+
 
 }

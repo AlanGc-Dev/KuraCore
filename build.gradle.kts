@@ -1,5 +1,16 @@
 plugins {
     kotlin("jvm") version "2.2.21"
+    `maven-publish`
+    id("com.gradleup.shadow") version "8.3.0"
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+        }
+    }
+
 }
 
 group = "com.kuraky"
@@ -10,6 +21,7 @@ repositories {
     maven {
         name = "papermc"
         url = uri("https://repo.papermc.io/repository/maven-public/")
+        url = uri(layout.buildDirectory.dir("mi-repo"))
     }
 }
 
@@ -17,6 +29,7 @@ dependencies {
     testImplementation(kotlin("test"))
     dependencies {
         compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     }
 }
 
@@ -26,4 +39,7 @@ kotlin {
 
 tasks.test {
     useJUnitPlatform()
+}
+tasks.build {
+    dependsOn("shadowJar")
 }

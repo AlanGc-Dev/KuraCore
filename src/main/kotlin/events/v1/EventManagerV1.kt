@@ -7,7 +7,8 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 
 class EventManagerV1 {
-    val dummyListener = object : Listener {}
+    @PublishedApi
+    internal val dummyListener = object : Listener {}
 
     inline fun <reified T : Event> listen(
         priority: EventPriority = EventPriority.NORMAL,
