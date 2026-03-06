@@ -21,7 +21,6 @@ repositories {
     maven {
         name = "papermc"
         url = uri("https://repo.papermc.io/repository/maven-public/")
-        url = uri(layout.buildDirectory.dir("mi-repo"))
     }
 }
 
