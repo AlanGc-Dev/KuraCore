@@ -14,7 +14,7 @@ publishing {
 }
 
 group = "com.kuraky"
-version = "1.0-SNAPSHOT"
+version = "v1.1"
 
 repositories {
     mavenCentral()

@@ -1,6 +1,6 @@
-package com.kuraky.events.v1
+package com.kuraky.events
 
-import com.kuraky.api.KuraAPI
+import com.kuraky.api.Api
 import org.bukkit.Bukkit
 import org.bukkit.event.Event
 import org.bukkit.event.EventPriority
@@ -25,7 +25,7 @@ class EventManagerV1 {
                     action(event)
                 }
             },
-            KuraAPI.plugin, // Usamos la instancia de tu core
+            Api.plugin, // Usamos la instancia de tu core
             ignoreCancelled
         )
     }

@@ -1,4 +1,4 @@
-package com.kuraky.commands.v1
+package com.kuraky.commands
 
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandMap
@@ -16,7 +16,7 @@ class CommandManagerV1 {
     fun command (
         nameAndUsage: String,
         permission: String? = null,
-        senderType: SenderType = SenderType.BOTH,
+        senderType: SenderType = SenderType.Both,
         action: (CommandSender, Array<out String>) -> Unit
     ) {
         val parts = nameAndUsage.trim().split(' ')

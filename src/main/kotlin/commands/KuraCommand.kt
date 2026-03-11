@@ -1,6 +1,5 @@
-package com.kuraky.commands.v1
+package com.kuraky.commands
 
-import com.kuraky.commands.v1.SenderType
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -21,15 +20,15 @@ class KuraCommand(
         }
 
         when (senderType) {
-            SenderType.PLAYER -> if (sender !is Player) {
+            SenderType.Player -> if (sender !is Player) {
                 sender.sendMessage("§cEste comando solo puede ser ejecutado por jugadores.")
                 return true
             }
-            SenderType.CONSOLE -> if (sender is Player) {
+            SenderType.Console -> if (sender is Player) {
                 sender.sendMessage("§cEste comando solo puede ser ejecutado desde la consola.")
                 return true
             }
-            SenderType.BOTH -> {}
+            SenderType.Both -> {}
         }
         action(sender, args)
         return true
