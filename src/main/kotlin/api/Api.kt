@@ -15,22 +15,13 @@ object Api {
 
     lateinit var plugin: Plugin private set
 
-    @PublishedApi internal var command = CommandManagerV1()
-    @PublishedApi internal var events = EventManagerV1()
+    val commands = CommandManagerV1()
+    val events = EventManagerV1()
 
     val chat = ChatManagerV1()
 
     fun init (coreplugin: Plugin) {
         this.plugin = coreplugin
-    }
-
-    fun command(
-        nameAndUsage: String,
-        permission: String? = null,
-        senderType: SenderType = SenderType.Both,
-        action: (CommandSender, Array<out String>) -> Unit
-    ) {
-        command.command(nameAndUsage, permission, senderType, action)
     }
 
     inline fun <reified T : Event> event(
