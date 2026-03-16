@@ -15,8 +15,8 @@ object Api {
 
     lateinit var plugin: Plugin private set
 
-    @PublishedApi internal var commandManager = CommandManagerV1()
-    @PublishedApi internal var eventManager = EventManagerV1()
+    @PublishedApi internal var command = CommandManagerV1()
+    @PublishedApi internal var events = EventManagerV1()
 
     val chat = ChatManagerV1()
 
@@ -30,7 +30,7 @@ object Api {
         senderType: SenderType = SenderType.Both,
         action: (CommandSender, Array<out String>) -> Unit
     ) {
-        commandManager.command(nameAndUsage, permission, senderType, action)
+        command.command(nameAndUsage, permission, senderType, action)
     }
 
     inline fun <reified T : Event> event(
@@ -38,7 +38,7 @@ object Api {
         ignoreCancelled: Boolean = false,
         crossinline action: (T) -> Unit
     ) {
-        eventManager.listen(priority, ignoreCancelled, action)
+        events.event(priority, ignoreCancelled, action)
     }
 
     fun config(targetPlugin: Plugin, fileName: String): KuraConfig {

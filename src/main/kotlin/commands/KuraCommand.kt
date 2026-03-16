@@ -6,31 +6,20 @@ import org.bukkit.entity.Player
 
 
 class KuraCommand(
-    name:String,
-    usageMessage: String,
-    private val permissionNode: String?,
-    private val senderType: SenderType,
-    private val action: (CommandSender, Array<out String>) -> Unit
-
-): Command(name,"",usageMessage, emptyList()) {
-    override fun execute(sender: CommandSender, commandLabel: String, args: Array<out String>): Boolean {
-        if (permissionNode != null && !sender.hasPermission(permissionNode)) {
-            sender.sendMessage("§cNo tienes permiso para ejecutar este comando.")
-            return true
-        }
-
-        when (senderType) {
-            SenderType.Player -> if (sender !is Player) {
-                sender.sendMessage("§cEste comando solo puede ser ejecutado por jugadores.")
-                return true
-            }
-            SenderType.Console -> if (sender is Player) {
-                sender.sendMessage("§cEste comando solo puede ser ejecutado desde la consola.")
-                return true
-            }
-            SenderType.Both -> {}
-        }
-        action(sender, args)
-        return true
+    name: String,
+    aliases: List<String>,
+    private val rootNode: CommandNode
+) : Command(name) {
+    init {
+        this.aliases = aliases
     }
+
+    override fun execute(sender: CommandSender, commandLabel: String, args: Array<out String>): Boolean {
+        return rootNode.execute(sender, args.toList().toTypedArray(), name)
+    }
+    override fun tabComplete(sender: CommandSender, alias: String, args: Array<out String>): MutableList<String> {
+        val completions = rootNode.getTableCompletions(args.toList().toTypedArray())
+        return completions?.toMutableList() ?: super.tabComplete(sender, alias, args)
+    }
+
 }
