@@ -12,7 +12,7 @@ class KuraCore : JavaPlugin() {
     }
 
     override fun onDisable() {
-        logger.info("§cKuraCore ha sido Desabilitado.")
+        logger.info("§cKuraCore ha sido Desabilitado .")
 
     }
 
