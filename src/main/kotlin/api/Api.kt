@@ -4,7 +4,10 @@ import com.kuraky.chat.ChatManagerV1
 import com.kuraky.commands.CommandManagerV1
 import com.kuraky.commands.SenderType
 import com.kuraky.config.KuraConfig
+import com.kuraky.entities.LootManager
 import com.kuraky.events.EventManagerV1
+import com.kuraky.items.ItemBuilder
+import jdk.jfr.DataAmount
 import org.bukkit.command.CommandSender
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.event.Event
@@ -19,6 +22,12 @@ object Api {
     val events = EventManagerV1()
 
     val chat = ChatManagerV1()
+    val display = com.kuraky.entities.KuraDisplay
+    val loot = LootManager
+
+    fun item(material: org.bukkit.Material, amount: Int = 1): com.kuraky.items.ItemBuilder {
+        return com.kuraky.items.ItemBuilder(material, amount)
+    }
 
     fun init (coreplugin: Plugin) {
         this.plugin = coreplugin
