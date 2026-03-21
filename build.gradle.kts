@@ -26,7 +26,7 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
-    dependencies {
+
         compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
         implementation("com.zaxxer:HikariCP:5.1.0")
@@ -34,7 +34,6 @@ dependencies {
         implementation("org.mongodb:mongodb-driver-sync:4.11.1")
         implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-    }
 }
 
 kotlin {

@@ -19,6 +19,7 @@ import com.kuraky.tasks.KuraTasks
 import org.bukkit.event.Event
 import org.bukkit.event.EventPriority
 import org.bukkit.plugin.Plugin
+import java.io.File
 
 object Api {
 
@@ -44,8 +45,22 @@ object Api {
 
     val rest = com.kuraky.network.KuraRest
     val tasks = KuraTasks
-    val cooldowms = CooldownManager
+    val cooldowns = CooldownManager
+    val base64 = com.kuraky.items.KuraSerializer
 
+    /**
+     * Crea un gestor de idiomas para un plugin y automáticamente lo pone bajo vigilancia (Auto-Reload).
+     */
+    fun lang(targetPlugin: Plugin, fileName: String = "lang.yml"): com.kuraky.chat.KuraLang {
+        val lang = com.kuraky.chat.KuraLang(targetPlugin, fileName)
+
+        // ¡Magia! Si alguien edita el lang.yml, se recarga solo.
+        com.kuraky.config.ConfigWatcher.watch(File(targetPlugin.dataFolder, fileName)) {
+            lang.reload()
+        }
+
+        return lang
+    }
     // Crea un atajo elegante para crear Cachés en tus plugins
     fun <K : Any, V : Any> createCache(expireMinutes: Long = 30, maxSize: Long = 2000): com.kuraky.database.KuraCache<K, V> {
         return com.kuraky.database.KuraCache(expireMinutes, maxSize)
