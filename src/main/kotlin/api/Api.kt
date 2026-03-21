@@ -5,16 +5,17 @@ import com.kuraky.atmosphere.ParticleEngine
 import com.kuraky.atmosphere.SoundManager
 import com.kuraky.chat.ChatManagerV1
 import com.kuraky.commands.CommandManagerV1
-import com.kuraky.commands.SenderType
 import com.kuraky.config.KuraConfig
+import com.kuraky.database.KuraMongoOrm
+import com.kuraky.database.KuraMongoPool
+import com.kuraky.database.KuraOrm
+import com.kuraky.database.KuraSqlPool
 import com.kuraky.database.MongoManager
 import com.kuraky.database.SqlManager
 import com.kuraky.entities.LootManager
 import com.kuraky.events.EventManagerV1
-import com.kuraky.items.ItemBuilder
-import jdk.jfr.DataAmount
-import org.bukkit.command.CommandSender
-import org.bukkit.configuration.file.YamlConfiguration
+import com.kuraky.tasks.CooldownManager
+import com.kuraky.tasks.KuraTasks
 import org.bukkit.event.Event
 import org.bukkit.event.EventPriority
 import org.bukkit.plugin.Plugin
@@ -33,17 +34,43 @@ object Api {
     val particles = ParticleEngine
     val aoe = AoeEngine
 
+    // Fábricas de conexiones
     val sql = SqlManager
     val mongo = MongoManager
 
+    // --- VARIABLES GLOBALES DEL ORM ---
+    lateinit var orm: KuraOrm private set
+    lateinit var mongoOrm: KuraMongoOrm private set
 
+    val rest = com.kuraky.network.KuraRest
+    val tasks = KuraTasks
+    val cooldowms = CooldownManager
+
+    // Crea un atajo elegante para crear Cachés en tus plugins
+    fun <K : Any, V : Any> createCache(expireMinutes: Long = 30, maxSize: Long = 2000): com.kuraky.database.KuraCache<K, V> {
+        return com.kuraky.database.KuraCache(expireMinutes, maxSize)
+    }
 
     fun item(material: org.bukkit.Material, amount: Int = 1): com.kuraky.items.ItemBuilder {
         return com.kuraky.items.ItemBuilder(material, amount)
     }
 
-    fun init (coreplugin: Plugin) {
+    fun init(coreplugin: Plugin) {
         this.plugin = coreplugin
+    }
+
+    /**
+     * Inicializa la base de datos SQL global para todos los plugins de la network.
+     */
+    fun setupGlobalSql(pool: KuraSqlPool) {
+        this.orm = KuraOrm(pool)
+    }
+
+    /**
+     * Inicializa la base de datos MongoDB global para todos los plugins de la network.
+     */
+    fun setupGlobalMongo(pool: KuraMongoPool) {
+        this.mongoOrm = KuraMongoOrm(pool)
     }
 
     inline fun <reified T : Event> event(
@@ -51,11 +78,10 @@ object Api {
         ignoreCancelled: Boolean = false,
         crossinline action: (T) -> Unit
     ) {
-        events.event(priority, ignoreCancelled, action )
+        events.event(priority, ignoreCancelled, action)
     }
 
     fun config(targetPlugin: Plugin, fileName: String): KuraConfig {
         return KuraConfig(targetPlugin, fileName)
     }
-
 }

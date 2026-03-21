@@ -32,6 +32,8 @@ dependencies {
         implementation("com.zaxxer:HikariCP:5.1.0")
         implementation("org.postgresql:postgresql:42.7.2")
         implementation("org.mongodb:mongodb-driver-sync:4.11.1")
+        implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     }
 }
 
