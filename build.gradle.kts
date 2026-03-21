@@ -29,6 +29,9 @@ dependencies {
     dependencies {
         compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+        implementation("com.zaxxer:HikariCP:5.1.0")
+        implementation("org.postgresql:postgresql:42.7.2")
+        implementation("org.mongodb:mongodb-driver-sync:4.11.1")
     }
 }
 

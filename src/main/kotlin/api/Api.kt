@@ -1,9 +1,14 @@
 package com.kuraky.api
 
+import com.kuraky.atmosphere.AoeEngine
+import com.kuraky.atmosphere.ParticleEngine
+import com.kuraky.atmosphere.SoundManager
 import com.kuraky.chat.ChatManagerV1
 import com.kuraky.commands.CommandManagerV1
 import com.kuraky.commands.SenderType
 import com.kuraky.config.KuraConfig
+import com.kuraky.database.MongoManager
+import com.kuraky.database.SqlManager
 import com.kuraky.entities.LootManager
 import com.kuraky.events.EventManagerV1
 import com.kuraky.items.ItemBuilder
@@ -24,6 +29,13 @@ object Api {
     val chat = ChatManagerV1()
     val display = com.kuraky.entities.KuraDisplay
     val loot = LootManager
+    val sound = SoundManager
+    val particles = ParticleEngine
+    val aoe = AoeEngine
+
+    val sql = SqlManager
+    val mongo = MongoManager
+
 
     fun item(material: org.bukkit.Material, amount: Int = 1): com.kuraky.items.ItemBuilder {
         return com.kuraky.items.ItemBuilder(material, amount)

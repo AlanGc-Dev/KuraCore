@@ -16,6 +16,9 @@ class KuraCore : JavaPlugin() {
 
     override fun onDisable() {
         logger.info("§cKuraCore ha sido Desabilitado .")
+        Api.sql.close()
+        Api.mongo.close()
+        logger.info("§cKuraCore ha sido Deshabilitado.")
 
     }
 
