@@ -38,12 +38,11 @@ object Api {
         ignoreCancelled: Boolean = false,
         crossinline action: (T) -> Unit
     ) {
-        events.event(priority, ignoreCancelled, action)
+        events.event(priority, ignoreCancelled, action )
     }
 
     fun config(targetPlugin: Plugin, fileName: String): KuraConfig {
         return KuraConfig(targetPlugin, fileName)
     }
-
 
 }
