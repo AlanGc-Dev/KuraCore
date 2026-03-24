@@ -21,6 +21,7 @@ import org.bukkit.event.EventPriority
 import org.bukkit.plugin.Plugin
 import java.io.File
 
+@Suppress("UNUSED")
 object Api {
 
     lateinit var plugin: Plugin private set

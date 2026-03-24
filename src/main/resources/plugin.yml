@@ -1,3 +1,6 @@
 name: "KuraCore"
 main: com.kuraky.KuraCore
-version: "v.1.1"
+version: "v1.1"
+description: "Lightweight core library for Kuraky Studios plugins. Provides commands, events, configuration management, chat formatting, and database integration."
+authors: ["Kuraky Studios"]
+api-version: "1.20"

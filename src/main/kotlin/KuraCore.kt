@@ -15,11 +15,21 @@ class KuraCore : JavaPlugin() {
     }
 
     override fun onDisable() {
-        logger.info("§cKuraCore ha sido Desabilitado .")
-        Api.sql.close()
-        Api.mongo.close()
-        logger.info("§cKuraCore ha sido Deshabilitado.")
-
+        logger.info("§cKuraCore está siendo deshabilitado...")
+        
+        try {
+            Api.sql.close()
+        } catch (e: Exception) {
+            logger.warning("Error al cerrar SQL: ${e.message}")
+        }
+        
+        try {
+            Api.mongo.close()
+        } catch (e: Exception) {
+            logger.warning("Error al cerrar MongoDB: ${e.message}")
+        }
+        
+        logger.info("§cKuraCore ha sido deshabilitado.")
     }
 
 
