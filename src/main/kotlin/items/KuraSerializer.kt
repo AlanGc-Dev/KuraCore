@@ -27,7 +27,7 @@ object KuraSerializer {
     fun itemFromBase64(base64: String): ItemStack? {
         return try {
             val inputStream = ByteArrayInputStream(Base64.getDecoder().decode(base64))
-            BukkitObjectInputStream(inputStream).use { it.readObject as ItemStack }
+            BukkitObjectInputStream(inputStream).use { it.readObject() as ItemStack }
         } catch (e: Exception) { null }
     }
 
